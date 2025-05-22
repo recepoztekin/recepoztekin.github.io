@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4285f4, #1a73e8);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background: #4285f4;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #3367d6;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .posts-section h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .post-content {
+            padding: 25px;
+        }
+        
+        .post-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .post-excerpt {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .post-date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .post-author {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .read-more {
+            background: transparent;
+            color: #4285f4;
+            border: 2px solid #4285f4;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            background: #4285f4;
+            color: white;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .widget {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        .widget-header {
+            background: #4285f4;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        
+        .widget-content {
+            padding: 25px;
+        }
+        
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        .category-item:hover {
+            color: #4285f4;
+        }
+        
+        .category-count {
+            background: #f0f0f0;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .newsletter-text {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .email-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+        
+        .subscribe-btn {
+            width: 100%;
+            background: #4285f4;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .subscribe-btn:hover {
+            background: #3367d6;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Mini Blog</div>
+            <nav class="nav-links">
+                <a href="#ana">Ana Sayfa</a>
+                <a href="#son">Son Yazı</a>
+                <a href="#hakkimizda">Hakkımızda</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Mini Blog Sayfamıza Hoş Geldiniz</h1>
+            <p>Güncel yazılarımızı ve düşüncelerimizi paylaştığımız blog sayfamızda keyifli okumalar.</p>
+            <a href="#son-yazilar" class="cta-button">Son Yazıyı Oku</a>
+        </section>
+        
+        <div class="main-content">
+            <main class="posts-section">
+                <h2>Son Yazılar</h2>
+                
+                <article class="post-card">
+                    <img src="" alt="Doğanın Güzellikleri" class="post-image">
+                    <div class="post-content">
+                        <h3 class="post-title">Doğanın Güzellikleri</h3>
+                        <div class="post-meta">
+                            <span class="post-date">23 Mayıs 2025</span>
+                            <span class="post-author">Ahmet Yılmaz</span>
+                        </div>
+                        <p class="post-excerpt">Doğanın muhteşem güzelliklerini keşfetmek için çıktığımız yolculukta karşılaştığımız manzaralar...</p>
+                        <a href="#" class="read-more">Devamını Oku</a>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <img src="" alt="Şehir Yaşamının İncelikleri" class="post-image">
+                    <div class="post-content">
+                        <h3 class="post-title">Şehir Yaşamının İncelikleri</h3>
+                        <div class="post-meta">
+                            <span class="post-date">18 Mayıs 2025</span>
+                            <span class="post-author">Zeynep Kaya</span>
+                        </div>
+                        <p class="post-excerpt">Modern şehir yaşamında karşılaştığımız zorluklar ve bunlarla başa çıkma yöntemleri...</p>
+                        <a href="#" class="read-more">Devamını Oku</a>
+                    </div>
+                </article>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="widget">
+                    <div class="widget-header">Kategoriler</div>
+                    <div class="widget-content">
+                        <a href="#" class="category-item">
+                            <span>Doğa</span>
+                            <span class="category-count">4</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <span>Şehir Yaşamı</span>
+                            <span class="category-count">2</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <span>Hayvanlar</span>
+                            <span class="category-count">3</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <span>Teknoloji</span>
+                            <span class="category-count">5</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="widget">
+                    <div class="widget-header">Abone Ol</div>
+                    <div class="widget-content">
+                        <p class="newsletter-text">Yeni yazılardan haberdar olmak için abone olun.</p>
+                        <input type="email" placeholder="E-posta adresiniz" class="email-input">
+                        <button class="subscribe-btn">Abone Ol</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>
